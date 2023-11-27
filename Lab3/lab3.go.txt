@@ -1,0 +1,109 @@
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
+
+// func add(a int, b int) int {
+// 	return a + b
+// }
+
+// func voidFunc(s string) {
+// 	fmt.Printf("Hello, %s!\n", s)
+// }
+
+// func div(a int, b int) (int, error) {
+// 	if b == 0 {
+// 		return 0, fmt.Errorf("Division by zero")
+// 	}
+
+// 	return a / b, nil
+// }
+
+// type optParams struct {
+// 	a int
+// 	b string
+// }
+
+// func optFunc(p optParams) {
+// 	fmt.Printf("a: %d\n", p.a)
+// }
+
+// func buildSlice(nums ...int) {
+// 	for i := range nums {
+// 		fmt.Println(i)
+// 	}
+// }
+
+func add(a int, b int) int {
+	return a + b
+}
+
+func minus(a int, b int) int {
+	return a - b
+}
+
+func mult(a int, b int) int {
+	return a * b
+}
+
+func div(a int, b int) int {
+	return a / b
+}
+
+var operationMap = map[string]func(int, int) int{
+	"+": add,
+	"-": minus,
+	"*": mult,
+	"/": div,
+}
+
+type operatorFunction func(int, int) int
+
+func main() {
+	// voidFunc("World")
+	// fmt.Println(add(1, 2))
+	// // fmt.Println(div(1, 2))
+	// // fmt.Println(div(1, 0))
+	// a, err := div(1, 2)
+
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	os.Exit(1)
+	// }
+	// fmt.Println(a)
+
+	// optFunc(optParams{a: 1, b: "test"})
+	// buildSlice(1, 2, 3, 4, 5)
+
+	exp := [][]string{
+		[]string{"1", "+", "2"},
+		[]string{"1", "-", "2"},
+		[]string{"1", "*", "2"},
+		[]string{"1", "/", "2"},
+		[]string{"4"},
+		[]string{"doi", "+", "trei"},
+	}
+
+	for _, e := range exp {
+		if len(e) != 3 {
+			fmt.Println("Must have 3 elements")
+			continue
+		}
+		p1, err := strconv.Atoi(e[0])
+		if err != nil {
+			fmt.Println("Invalid operand")
+			continue
+		}
+		p2, err := strconv.Atoi(e[2])
+		if err != nil {
+			fmt.Println("Invalid operand")
+			continue
+		}
+
+		op := operationMap[e[1]]
+		result := op(p1, p2)
+		fmt.Println(result)
+	}
+}

@@ -1,0 +1,36 @@
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+type Person struct {
+	name string
+	age  int
+}
+
+func main() {
+	a := []Person{
+		Person{
+			name: "Alice",
+			age:  31,
+		},
+		Person{
+			name: "Bob",
+			age:  12,
+		},
+		Person{
+			name: "Cindy",
+			age:  23,
+		},
+	}
+
+	fmt.Println(a)
+
+	sort.Slice(a, func(i, j int) bool {
+		return a[i].age < a[j].age
+	})
+
+	fmt.Println(a)
+}

@@ -1,0 +1,35 @@
+package main
+
+import "fmt"
+
+type Logger interface {
+	Log() string
+}
+
+type Book struct {
+	Title  string
+	Author string
+}
+
+func (b Book) Log() string {
+	return fmt.Sprintf("%s by %s", b.Title, b.Author)
+}
+
+type OtherType string
+
+func (o OtherType) Log() string {
+	return string(o)
+}
+
+func main() {
+	var b = Book{
+		Title:  "The Hitchhiker's Guide to the Galaxy",
+		Author: "Douglas Adams",
+	}
+	var o OtherType = "This is another type"
+	var l Logger = b
+	fmt.Println(l.Log())
+
+	l = o
+	fmt.Println(l.Log())
+}

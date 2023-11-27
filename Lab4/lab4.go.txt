@@ -1,0 +1,59 @@
+package main
+
+import "fmt"
+
+type Employee struct {
+	Name string
+	ID   string
+}
+
+func (e Employee) Describe() string {
+	return fmt.Sprintf("Employee Name: %s \nID %s", e.Name, e.ID)
+}
+
+type Manager struct {
+	Employee
+	Reports []Employee
+}
+
+type Company struct {
+	Employees []Employee
+}
+
+func (c Company) Describe() string {
+	s := "Company has"
+	for _, e := range c.Employees {
+		s += "\n" + e.Describe()
+	}
+	return s
+}
+
+func main() {
+	c := Company{
+		Employees: []Employee{
+			{
+				Name: "John",
+				ID:   "123",
+			},
+			{
+				Name: "Jane",
+				ID:   "456",
+			},
+		},
+	}
+
+	m := Manager{
+		Employee: Employee{
+			Name: "Johnny",
+			ID:   "222",
+		},
+		Reports: []Employee{
+			{
+				Name: "Jane",
+				ID:   "456",
+			},
+		},
+	}
+	fmt.Println(m)
+	fmt.Println(c.Describe())
+}
